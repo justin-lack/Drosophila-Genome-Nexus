@@ -5,7 +5,7 @@ round1_assembly.pl 	#execute the first round of mapping
 
 round2_assembly.pl 	#executes the second round of mapping
 
-VCF_filter.pl 	#filters SNP calls from the first round; requires >=75% of the reads at a position to match the alternate call, other wise the SNP is discarded
+VCF_filter.pl 	#filters SNP calls from the first round; requires >=75% of the reads at a position to match the alternate call, other wise the SNP is discarded; should be placed in the same directory as the read files and the round_1_assembly.pl script
 
 IndelShift.pl 	#Removes indels added following the first round
 
@@ -208,3 +208,8 @@ for ($i = 0; $i < @FastqFile; $i++){
   $cmd = "java -Xmx" . $mem . "g -jar " . $gatk . "GenomeAnalysisTK.jar -T UnifiedGenotyper -R " . $FastqFile[$i] . "_reference.fasta -mbq 10 -stand_call_conf 31 -stand_emit_conf 31 -ploidy 1 -out_mode EMIT_ALL_SITES -I " . $FastqFile[$i] . "realign2.bam -o " . $FastqFile[$i] . "_SNPs.vcf"; #GENERATION OF ALL-SITES VCF. QUALITY VALUE CUTOFFS ARE IGNORED IN THIS COMMAND LINE BECAUSE ALL SITES WITH AT LEAST A SINGLE READ COVERING ARE CALLED
   system($cmd);
   }
+
+#Following the end of the second round of the pipeline, several additional steps are required to produce the sequence files provided in the Drosophila Genome Nexus
+#POSITION ADJUSTMENT - due to aligning to an augmented reference, with INDELS called in the first round inserted into the original reference genome, positions in the ALL-SITES VCF files must be shifted back to those of the original reference genome.
+#To adjust the base positions in the ALL SITES VCF files, simply place the IndelShift.pl script in the same directory as the ALL SITES VCF file(s) produced from the pipeline above, along with the round1 *INDELS.vcf files, and execute the IndelShift.pl script.
+#Following position adjustment, the 
