@@ -28,7 +28,7 @@ closedir DIR;
 #find correct input files
 for ($a = 0; $a < @AllFiles; $a++){
   if ($AllFiles[$a] =~ m'sites.vcf'){
-    push (@Files, (split 'sites', $AllFiles[$a])[0]);
+    push (@Files, (split '_sites', $AllFiles[$a])[0]);
   }
 }
 
@@ -38,7 +38,7 @@ for ($k = 0; $k < @Files; $k++) {
   my $Contigs = $arms;
 
   my $Name = $Files[$k];
-  my $VCFin = $Files[$k] . 'sites.vcf';
+  my $VCFin = $Files[$k] . '_sites.vcf';
   my $INDELSin = $Files[$k] . '_INDELS.vcf';
   $cmd = "gunzip " . $VCFin . '.gz';
   system($cmd);
