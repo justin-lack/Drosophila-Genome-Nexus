@@ -212,4 +212,6 @@ for ($i = 0; $i < @FastqFile; $i++){
 #Following the end of the second round of the pipeline, several additional steps are required to produce the sequence files provided in the Drosophila Genome Nexus
 #POSITION ADJUSTMENT - due to aligning to an augmented reference, with INDELS called in the first round inserted into the original reference genome, positions in the ALL-SITES VCF files must be shifted back to those of the original reference genome.
 #To adjust the base positions in the ALL SITES VCF files, simply place the IndelShift.pl script in the same directory as the ALL SITES VCF file(s) produced from the pipeline above, along with the round1 *INDELS.vcf files, and execute the IndelShift.pl script.
-#Following position adjustment, the 
+#Following position adjustment, the VCF_to_Seq scripts can be used to generate unformatted sequences for each contig in the reference genome.
+#For *sites.vcf files called with the diploid (-ploidy 2) option in the Unified Genotyper, use the VCF_to_Seq_diploid.pl version, while those called with the haploid option (-ploidy 1) should use the VCF_to_Seq_haploid.pl version.
+#Place the appropriate version of this script in the same directory as your *sites.vcf files. Supply the chromosome/contig names, the number of total chromosomes/contigs, the quality threshold, and the number of bases around indels to be masked (change this to zero if you want to remove this feature)
