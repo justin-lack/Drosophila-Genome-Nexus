@@ -16,7 +16,7 @@ closedir DIR;
 #find correct input files
 for ($a = 0; $a < @AllFiles; $a++){
   if ($AllFiles[$a] =~ m'sites.vcf'){
-    push (@VCFin, (split 'sites', $AllFiles[$a])[0]);
+    push (@VCFin, (split '_sites', $AllFiles[$a])[0]);
   }
 }
 
@@ -25,7 +25,7 @@ my $z = 0;
 
 for ($z = 0; $z < @VCFin; $z++){
 
-  $cmd = 'gunzip ' . $VCFin[$z] . 'sites.vcf.gz';
+  $cmd = 'gunzip ' . $VCFin[$z] . '_sites.vcf.gz';
   system($cmd);
   $cmd = 'purge';
   system($cmd);
@@ -37,7 +37,7 @@ for ($z = 0; $z < @VCFin; $z++){
   my $infile = '';
   my $outfile = '';
   
-  $infile = $VCFin[$z] . 'sites.vcf';
+  $infile = $VCFin[$z] . '_sites.vcf';
   $outfile = $VCFin[$z] . '_HetRegions.txt';
   open C, ">$outfile";
 
