@@ -76,7 +76,7 @@ for ($z = 0; $z < @Files; $z++){
   $cmd = "purge";
   system($cmd);
 
-open U, "</Users/justin/Desktop/january_seq_run/round1/round1_bams/$INDELSin";
+open U, "<$INDELSin";
 while (<U>){
   chomp;
   last if m/^$/;
