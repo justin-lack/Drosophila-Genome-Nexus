@@ -17,6 +17,7 @@ my $z = 0;
 my $k = 0;
 my $a = 0;
 my $outfile = '';
+my $thresh = 'RG_pi.txt';
 
 opendir DIR, "." or die "couldn't open directory\n";
 @AllFiles = readdir(DIR);
@@ -65,7 +66,7 @@ for ($z = 0; $z < @HeterozygosityIn; $z++){
     close V;
     undef @line;
 
-    open W, "<FR_pi.txt";
+    open W, "<$thresh";
     while (<W>){
       chomp;
       last if m/^$/;
