@@ -13,5 +13,9 @@ Tracts of IBD may reflect the sampling of related individuals, and can contradic
 	For the DPGP2 and AGES genomes, we excluded the same recurrent IBD regions as those of Pool et al. (2012). However, for the much larger DGRP and DPGP3 samples of genomes, we visually reexamined these recurrent IBD tracts and generated new regions to be excluded for each of these data sets (provided in Table S4 of the DGN manuscript and available at http://johnpool.net/genomes.html). 
 	Due to heterozygosity filtering, some diploid genomes had genomic coverages far less than the typical ~111 Mb. Therefore, the genome-wide threshold for IBD filtering was adjusted to 5% of all called positions rather than 5 Mb. In addition, only 500 kb windows with >100 kb pairwise comparisons were allowed to contribute to the 5% total, minimizing the influence of windows with large numbers of masked sites.
 	
+The perl script requires the
+Parallel::Forkmanager module, the c++ program is pretty
+straightforward and should not require anything besides g++ to compile
+('g++ -o find_ibd_regions find_ibd_regions.cpp')
 
 Pool, J. E., R. B. Corbett-Detig, R. P. Sugino, K. A. Stevens, C. M. Cardeno et al., 2012  Population genomics of Sub-Saharan Drosophila melanogaster: African diversity and 
