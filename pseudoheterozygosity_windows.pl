@@ -15,8 +15,8 @@ closedir DIR;
 
 #find correct input files
 for ($a = 0; $a < @AllFiles; $a++){
-  if ($AllFiles[$a] =~ m'sites.vcf'){
-    push (@VCFin, (split '_sites', $AllFiles[$a])[0]);
+  if ($AllFiles[$a] =~ m'haploid_shifted.vcf'){
+    push (@VCFin, (split 'haploid_shifted', $AllFiles[$a])[0]);
   }
 }
 
@@ -25,7 +25,7 @@ my $z = 0;
 
 for ($z = 0; $z < @VCFin; $z++){
 
-  $cmd = 'gunzip ' . $VCFin[$z] . '_sites.vcf.gz';
+  $cmd = 'gunzip ' . $VCFin[$z] . 'haploid_shifted.vcf.gz';
   system($cmd);
   $cmd = 'purge';
   system($cmd);
@@ -37,7 +37,7 @@ for ($z = 0; $z < @VCFin; $z++){
   my $infile = '';
   my $outfile = '';
   
-  $infile = $VCFin[$z] . '_sites.vcf';
+  $infile = $VCFin[$z] . 'haploid_shifted.vcf';
   $outfile = $VCFin[$z] . '_HetRegions.txt';
   open C, ">$outfile";
 
@@ -79,12 +79,12 @@ for ($z = 0; $z < @VCFin; $z++){
 	  $AlleleAlt_Depth = ((split /,/, $Individual2)[1]);
 	  $prop = ($AlleleAlt_Depth/($AlleleAlt_Depth + $AlleleRef_Depth));
 	  $Genotype = $prop;
-	}
+    }
 	else {
 	  $Chrom = $line[0];
 	  $Position = $line[1];
 	  $Genotype = 1;
-	}
+    }
       }
       else {
 	$Chrom = $line[0];
@@ -104,8 +104,8 @@ for ($z = 0; $z < @VCFin; $z++){
 	  $sites++;
 	  if ($Genotype <= 0.75) {
 	    $hets++;
-	  }
-	}
+      }
+    }
 	$prevpos = $Position;
       }
       elsif ($Position > (4999 + $start)) {
@@ -123,9 +123,9 @@ for ($z = 0; $z < @VCFin; $z++){
 	  $sites++;
 	  if ($Genotype <= 0.75) {
 	    $hets++;
-	  }
+      }
 	  $prevpos = $Position;
-	}
+    }
       }
       elsif ($Position < $start) {
 	$x++;
@@ -143,11 +143,11 @@ for ($z = 0; $z < @VCFin; $z++){
 	  $sites++;
 	  if ($Genotype <= 0.75) {
 	    $hets++;
-	  }
-	}
       }
     }
+      }
   }
+
   close V;
   #  $cmd = 'gzip ' . $VCFin[$z] . '_shifted.vcf';
   #  system($cmd);
